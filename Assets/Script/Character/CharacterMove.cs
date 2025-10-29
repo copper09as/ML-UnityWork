@@ -58,7 +58,6 @@ public class Character2DAgent : Agent
             Debug.Log("Reward"+distanceToTarget.ToString());
             EndEpisode();
         }
-
         else if (this.transform.localPosition.y < 0)
         {
             Debug.Log(transform.localPosition.y.ToString());
