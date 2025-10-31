@@ -1242,17 +1242,17 @@ MonoBehaviour:
   MaxStep: 20000
   envController: {fileID: 651515872}
   hitColor: {r: 1, g: 0, b: 0, a: 1}
-  initTransform: {fileID: 352078430}
-  sr: {fileID: 1533811792}
-  rb: {fileID: 1533811790}
-  hpText: {fileID: 918142381}
   originalColor: {r: 0.4, g: 0.5803922, b: 1, a: 1}
+  sr: {fileID: 1533811792}
+  hpText: {fileID: 918142381}
+  initTransform: {fileID: 352078430}
+  rb: {fileID: 1533811790}
   animator: {fileID: 1533811793}
-  enemy: {fileID: 1653214567}
+  col: {fileID: 1533811791}
   playerLayer:
     serializedVersion: 2
     m_Bits: 128
-  col: {fileID: 1533811791}
+  enemy: {fileID: 1653214567}
   jumpHeight: 5
   speedSky: 5
   speed: 8
@@ -1261,15 +1261,17 @@ MonoBehaviour:
   hp: 100
   attackRange: 4
   attackCooldown: 0.5
-  dashCooldown: 3
+  dashCooldown: 2
   dashDuration: 0.3
   dashSpeed: 10
   fallDamage: 30
   hitFlashDuration: 0.2
   beAttackAward: 20
-  moveAward: 0.01
   attackAward: 0
   attackMissAward: 0
+  moveAward: 0.01
+  approachEnemyAward: 0.01
+  stayHealthyAward: 0.005
   fallAward: -300
 --- !u!114 &1533811789
 MonoBehaviour:
@@ -1661,17 +1663,17 @@ MonoBehaviour:
   MaxStep: 20000
   envController: {fileID: 651515872}
   hitColor: {r: 1, g: 0, b: 0, a: 1}
-  initTransform: {fileID: 628783836}
-  sr: {fileID: 1653214563}
-  rb: {fileID: 1653214565}
-  hpText: {fileID: 1826823808}
   originalColor: {r: 0.6156863, g: 1, b: 0.43529412, a: 1}
+  sr: {fileID: 1653214563}
+  hpText: {fileID: 1826823808}
+  initTransform: {fileID: 628783836}
+  rb: {fileID: 1653214565}
   animator: {fileID: 1653214569}
-  enemy: {fileID: 1533811788}
+  col: {fileID: 1653214562}
   playerLayer:
     serializedVersion: 2
     m_Bits: 128
-  col: {fileID: 1653214562}
+  enemy: {fileID: 1533811788}
   jumpHeight: 5
   speedSky: 5
   speed: 5
@@ -1686,9 +1688,11 @@ MonoBehaviour:
   fallDamage: 30
   hitFlashDuration: 0.2
   beAttackAward: 5
-  moveAward: 0
   attackAward: 100
   attackMissAward: -150
+  moveAward: 0
+  approachEnemyAward: 0.01
+  stayHealthyAward: 0.005
   fallAward: -300
 --- !u!114 &1653214568
 MonoBehaviour:
