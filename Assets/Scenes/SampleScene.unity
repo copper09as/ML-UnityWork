@@ -1246,6 +1246,7 @@ MonoBehaviour:
   sr: {fileID: 1533811792}
   rb: {fileID: 1533811790}
   hpText: {fileID: 918142381}
+  originalColor: {r: 0.4, g: 0.5803922, b: 1, a: 1}
   animator: {fileID: 1533811793}
   enemy: {fileID: 1653214567}
   playerLayer:
@@ -1404,7 +1405,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 6433ecac68320e440891fab6cc34f545, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0.39811313, g: 0.5820533, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -1576,7 +1577,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 6433ecac68320e440891fab6cc34f545, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0.6159737, g: 1, b: 0.435849, a: 1}
   m_FlipX: 1
   m_FlipY: 0
   m_DrawMode: 0
@@ -1664,6 +1665,7 @@ MonoBehaviour:
   sr: {fileID: 1653214563}
   rb: {fileID: 1653214565}
   hpText: {fileID: 1826823808}
+  originalColor: {r: 0.6156863, g: 1, b: 0.43529412, a: 1}
   animator: {fileID: 1653214569}
   enemy: {fileID: 1533811788}
   playerLayer:
