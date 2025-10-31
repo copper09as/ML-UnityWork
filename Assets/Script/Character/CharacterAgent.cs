@@ -26,6 +26,7 @@ public class CharacteAgent : Agent
     [NonSerialized] public bool flip = false;
     [NonSerialized] public bool defaultFacingRight = true;
     [SerializeField] private Text hpText;
+    [SerializeField]private Color originalColor;
     public Animator animator;
     [NonSerialized] public float dashTimer = 0f;
     public CharacteAgent enemy;
@@ -66,6 +67,7 @@ public class CharacteAgent : Agent
         transform.position = initTransform.position;
         hp = maxHp;
         hpText.text = hp.ToString();
+        sr.color = originalColor;
     }
     public override void CollectObservations(VectorSensor sensor)
     {
@@ -227,7 +229,6 @@ public class CharacteAgent : Agent
 
     private IEnumerator FlashHitColor()
     {
-        Color originalColor = sr.color;
         sr.color = hitColor;
         yield return new WaitForSeconds(hitFlashDuration);
         sr.color = originalColor;
