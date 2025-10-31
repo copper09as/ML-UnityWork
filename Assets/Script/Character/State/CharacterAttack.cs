@@ -14,7 +14,6 @@ public class CharacterAttack : CharacterState
     public override void OnExit()
     {
     }
-
     public override void Update()
     {
         character.rb.velocity = new Vector2(character.speedSky * stateMachine.Input.moveDir, character.rb.velocity.y);

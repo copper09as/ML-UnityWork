@@ -54,7 +54,7 @@ public class CharacteAgent : Agent
     [Header("奖励参数 - 战斗")]
     [SerializeField] private float beAttackAward = 0.01f;      // 被攻击惩罚
     [SerializeField] private float attackAward = 0.5f;         // 攻击命中奖励
-    [SerializeField] private float attackMissAward = -0.1f;    // 攻击未命中奖励
+    [SerializeField] public float attackMissAward = -0.1f;    // 攻击未命中奖励
     [SerializeField] private float victoryAward = 5f;          // 胜利奖励
     [SerializeField] private float defeatAward = -5f;          // 失败惩罚
 
