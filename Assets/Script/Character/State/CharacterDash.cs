@@ -1,0 +1,50 @@
+﻿using UnityEngine;
+using System;
+
+public class CharacterDash : CharacterState
+{
+
+    private float originalGravity;
+    private Rigidbody2D rb;
+    private int dir;
+
+    public override void OnEnter()
+    {
+        dir = stateMachine.Input.moveDir;
+        character.state = 4;
+        character.isInvincible = true;
+        character.dashTimer = 0f;
+
+        rb = character.rb;
+
+        originalGravity = rb.gravityScale;
+
+        rb.gravityScale = 0f;
+
+        rb.bodyType = RigidbodyType2D.Kinematic;
+
+        character.animator.Play("Walk");
+
+    }
+
+    public override void OnExit()
+    {
+        character.isInvincible = false;
+        rb.gravityScale = originalGravity;
+        rb.bodyType = RigidbodyType2D.Dynamic;
+    }
+
+    public override void Update()
+    {
+        character.dashTimer += Time.deltaTime;
+
+        // 保持水平速度
+        rb.velocity = new Vector2(dir*character.dashSpeed, 0f);
+
+        if (character.dashTimer >= character.dashDuration)
+        {
+            // 冲刺结束，回到上一个状态
+            stateMachine.Enter(stateMachine.lastState);
+        }
+    }
+}

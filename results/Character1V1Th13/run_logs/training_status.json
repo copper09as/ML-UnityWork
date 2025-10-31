@@ -1,0 +1,51 @@
+{
+    "CharacterABehavior": {
+        "checkpoints": [
+            {
+                "steps": 30025,
+                "file_path": "results\\Character1V1Th13\\CharacterABehavior\\CharacterABehavior-30025.onnx",
+                "reward": -3797.87987190485,
+                "creation_time": 1761920773.3437421,
+                "auxillary_file_paths": [
+                    "results\\Character1V1Th13\\CharacterABehavior\\CharacterABehavior-30025.pt"
+                ]
+            }
+        ],
+        "final_checkpoint": {
+            "steps": 30025,
+            "file_path": "results\\Character1V1Th13\\CharacterABehavior.onnx",
+            "reward": -3797.87987190485,
+            "creation_time": 1761920773.3437421,
+            "auxillary_file_paths": [
+                "results\\Character1V1Th13\\CharacterABehavior\\CharacterABehavior-30025.pt"
+            ]
+        }
+    },
+    "CharacterBBehavior": {
+        "checkpoints": [
+            {
+                "steps": 30025,
+                "file_path": "results\\Character1V1Th13\\CharacterBBehavior\\CharacterBBehavior-30025.onnx",
+                "reward": 1000.0,
+                "creation_time": 1761920773.7005918,
+                "auxillary_file_paths": [
+                    "results\\Character1V1Th13\\CharacterBBehavior\\CharacterBBehavior-30025.pt"
+                ]
+            }
+        ],
+        "final_checkpoint": {
+            "steps": 30025,
+            "file_path": "results\\Character1V1Th13\\CharacterBBehavior.onnx",
+            "reward": 1000.0,
+            "creation_time": 1761920773.7005918,
+            "auxillary_file_paths": [
+                "results\\Character1V1Th13\\CharacterBBehavior\\CharacterBBehavior-30025.pt"
+            ]
+        }
+    },
+    "metadata": {
+        "stats_format_version": "0.3.0",
+        "mlagents_version": "1.1.0",
+        "torch_version": "1.12.1+cpu"
+    }
+}

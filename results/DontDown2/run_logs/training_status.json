@@ -1,0 +1,29 @@
+{
+    "MyBehavior": {
+        "checkpoints": [
+            {
+                "steps": 768,
+                "file_path": "results\\DontDown2\\MyBehavior\\MyBehavior-768.onnx",
+                "reward": null,
+                "creation_time": 1761905698.1686406,
+                "auxillary_file_paths": [
+                    "results\\DontDown2\\MyBehavior\\MyBehavior-768.pt"
+                ]
+            }
+        ],
+        "final_checkpoint": {
+            "steps": 768,
+            "file_path": "results\\DontDown2\\MyBehavior.onnx",
+            "reward": null,
+            "creation_time": 1761905698.1686406,
+            "auxillary_file_paths": [
+                "results\\DontDown2\\MyBehavior\\MyBehavior-768.pt"
+            ]
+        }
+    },
+    "metadata": {
+        "stats_format_version": "0.3.0",
+        "mlagents_version": "1.1.0",
+        "torch_version": "1.12.1+cpu"
+    }
+}

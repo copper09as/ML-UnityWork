@@ -1,0 +1,29 @@
+{
+    "MyBehavior": {
+        "checkpoints": [
+            {
+                "steps": 4256,
+                "file_path": "results\\DontDown19\\MyBehavior\\MyBehavior-4256.onnx",
+                "reward": null,
+                "creation_time": 1761910576.5495465,
+                "auxillary_file_paths": [
+                    "results\\DontDown19\\MyBehavior\\MyBehavior-4256.pt"
+                ]
+            }
+        ],
+        "final_checkpoint": {
+            "steps": 4256,
+            "file_path": "results\\DontDown19\\MyBehavior.onnx",
+            "reward": null,
+            "creation_time": 1761910576.5495465,
+            "auxillary_file_paths": [
+                "results\\DontDown19\\MyBehavior\\MyBehavior-4256.pt"
+            ]
+        }
+    },
+    "metadata": {
+        "stats_format_version": "0.3.0",
+        "mlagents_version": "1.1.0",
+        "torch_version": "1.12.1+cpu"
+    }
+}

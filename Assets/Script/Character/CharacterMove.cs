@@ -17,9 +17,7 @@ public class Character2DAgent : Agent
     public Transform deadPositionTransform;
     public float reachRadius = 0.5f;
     
-    // ¶¯×÷»º´æ
-    private float moveInput = 0f;
-    private float turnInput = 0f;
+
 
     [Header("Debug Settings")]
     public bool debugLogs = true;
