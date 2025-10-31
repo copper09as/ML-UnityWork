@@ -1,0 +1,65 @@
+{
+    "MyBehavior": {
+        "checkpoints": [
+            {
+                "steps": 12052,
+                "file_path": "results\\DirectTest3\\MyBehavior\\MyBehavior-12052.onnx",
+                "reward": null,
+                "creation_time": 1761794618.3853083,
+                "auxillary_file_paths": [
+                    "results\\DirectTest3\\MyBehavior\\MyBehavior-12052.pt"
+                ]
+            },
+            {
+                "steps": 13482,
+                "file_path": "results\\DirectTest3\\MyBehavior\\MyBehavior-13482.onnx",
+                "reward": -90.21137639362456,
+                "creation_time": 1761794660.8208573,
+                "auxillary_file_paths": [
+                    "results\\DirectTest3\\MyBehavior\\MyBehavior-13482.pt"
+                ]
+            },
+            {
+                "steps": 18056,
+                "file_path": "results\\DirectTest3\\MyBehavior\\MyBehavior-18056.onnx",
+                "reward": -41.082500004124,
+                "creation_time": 1761794754.3350043,
+                "auxillary_file_paths": [
+                    "results\\DirectTest3\\MyBehavior\\MyBehavior-18056.pt"
+                ]
+            },
+            {
+                "steps": 20230,
+                "file_path": "results\\DirectTest3\\MyBehavior\\MyBehavior-20230.onnx",
+                "reward": -54.47154471544715,
+                "creation_time": 1761794942.0486128,
+                "auxillary_file_paths": [
+                    "results\\DirectTest3\\MyBehavior\\MyBehavior-20230.pt"
+                ]
+            },
+            {
+                "steps": 30001,
+                "file_path": "results\\DirectTest3\\MyBehavior\\MyBehavior-30001.onnx",
+                "reward": 99.95051496169147,
+                "creation_time": 1761795021.4016218,
+                "auxillary_file_paths": [
+                    "results\\DirectTest3\\MyBehavior\\MyBehavior-30001.pt"
+                ]
+            }
+        ],
+        "final_checkpoint": {
+            "steps": 30001,
+            "file_path": "results\\DirectTest3\\MyBehavior.onnx",
+            "reward": 99.95051496169147,
+            "creation_time": 1761795021.4016218,
+            "auxillary_file_paths": [
+                "results\\DirectTest3\\MyBehavior\\MyBehavior-30001.pt"
+            ]
+        }
+    },
+    "metadata": {
+        "stats_format_version": "0.3.0",
+        "mlagents_version": "1.1.0",
+        "torch_version": "1.12.1+cpu"
+    }
+}
