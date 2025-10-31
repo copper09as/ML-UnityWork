@@ -14,6 +14,5 @@ public class BattleEnvController : MonoBehaviour
 
         winner.EndEpisode();
         loser.EndEpisode();
-        Debug.Log(loser.gameObject.name);
     }
 }
