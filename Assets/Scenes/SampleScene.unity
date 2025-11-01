@@ -1240,6 +1240,7 @@ MonoBehaviour:
     maxStep: 0
   hasUpgradedFromAgentParameters: 1
   MaxStep: 20000
+  arenaCenter: {x: -5.3253, y: 0}
   envController: {fileID: 651515872}
   hitColor: {r: 1, g: 0, b: 0, a: 1}
   originalColor: {r: 0.4, g: 0.5803922, b: 1, a: 1}
@@ -1256,9 +1257,9 @@ MonoBehaviour:
   jumpHeight: 5
   speedSky: 5
   speed: 8
-  damage: 3
-  maxHp: 100
-  hp: 100
+  damage: 10
+  maxHp: 60
+  hp: 60
   attackRange: 4
   attackCooldown: 0.5
   dashCooldown: 2
@@ -1266,13 +1267,21 @@ MonoBehaviour:
   dashSpeed: 10
   fallDamage: 30
   hitFlashDuration: 0.2
-  beAttackAward: 20
-  attackAward: 0
+  hitsToDown: 3
+  hitComboTime: 2
+  beAttackAward: -5
+  attackAward: 100
   attackMissAward: 0
-  moveAward: 0.01
-  approachEnemyAward: 0.01
+  moveAward: 0
   stayHealthyAward: 0.005
-  fallAward: -300
+  fallAward: -1000
+  centerBonusRadius: 2
+  centerReward: 0.01
+  switchDirPenalty: -0.01
+  attackRangeWardBest: 0.02
+  attackRangeWardFar: -0.02
+  attackRangeWardClose: -0.03
+  enemyDistanceAward: 0.05
 --- !u!114 &1533811789
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1661,6 +1670,7 @@ MonoBehaviour:
     maxStep: 0
   hasUpgradedFromAgentParameters: 1
   MaxStep: 20000
+  arenaCenter: {x: 0, y: 0}
   envController: {fileID: 651515872}
   hitColor: {r: 1, g: 0, b: 0, a: 1}
   originalColor: {r: 0.6156863, g: 1, b: 0.43529412, a: 1}
@@ -1687,13 +1697,21 @@ MonoBehaviour:
   dashSpeed: 10
   fallDamage: 30
   hitFlashDuration: 0.2
-  beAttackAward: 5
+  hitsToDown: 3
+  hitComboTime: 2
+  beAttackAward: -5
   attackAward: 100
   attackMissAward: -150
   moveAward: 0
-  approachEnemyAward: 0.01
   stayHealthyAward: 0.005
-  fallAward: -300
+  fallAward: -1000
+  centerBonusRadius: 2
+  centerReward: 0.01
+  switchDirPenalty: -0.01
+  attackRangeWardBest: 0.02
+  attackRangeWardFar: -0.02
+  attackRangeWardClose: -0.03
+  enemyDistanceAward: 0.05
 --- !u!114 &1653214568
 MonoBehaviour:
   m_ObjectHideFlags: 0

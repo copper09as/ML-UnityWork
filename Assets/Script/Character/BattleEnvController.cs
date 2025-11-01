@@ -9,8 +9,8 @@ public class BattleEnvController : MonoBehaviour
     {
         CharacteAgent winner = (loser == agentA) ? agentB : agentA;
 
-        winner.AddReward(1000f);
-        loser.AddReward(-1000f);
+        winner.AddReward(10000f);
+        loser.AddReward(-10000f);
 
         winner.EndEpisode();
         loser.EndEpisode();

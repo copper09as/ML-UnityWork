@@ -8,9 +8,12 @@ using UnityEngine.UI;
 
 public class CharacteAgent : Agent
 {
+    public Vector2 arenaCenter = Vector2.zero; // 场地中心位置
+
     private CharacterStateMachine stateMachine;
     public BattleEnvController envController;
-
+    private int lastMoveDir = 0;
+   
     [Header("角色视觉反馈")]
     public Color hitColor = Color.red;  // 被攻击时的颜色
     [SerializeField] private Color originalColor;
@@ -39,6 +42,12 @@ public class CharacteAgent : Agent
     public float dashSpeed = 10f;
     public int fallDamage = 30;
     public float hitFlashDuration = 0.2f;
+    [Header("倒地检测参数")]
+    public int hitsToDown = 3;          // 连续受击次数阈值
+    public float hitComboTime = 2f;     // 时间窗口（秒）
+
+    [NonSerialized] public int hitCount = 0;      // 当前连续受击次数
+    [NonSerialized] public float lastHitTime = -10f; // 上一次受击时间
 
     [Header("智能体状态（运行时）")]
     [NonSerialized] public int state;
@@ -59,10 +68,16 @@ public class CharacteAgent : Agent
 
     [Header("奖励参数 - 行为")]
     [SerializeField] private float moveAward = 0.002f;         // 移动奖励
-    [SerializeField] private float approachEnemyAward = 0.01f; // 靠近敌人奖励
+
     [SerializeField] private float stayHealthyAward = 0.005f;  // 保持高血量奖励
     [SerializeField] private float fallAward = -1f;            // 掉落惩罚
-
+    [SerializeField] private float centerBonusRadius = 2f; // 半径范围
+    [SerializeField] private float centerReward = 0.01f;   // 奖励值
+    [SerializeField]private float switchDirPenalty = -0.005f;
+    [SerializeField] private float attackRangeWardBest = -0.005f;
+    [SerializeField] private float attackRangeWardFar = -0.005f;
+    [SerializeField] private float attackRangeWardClose= -0.005f;
+    [SerializeField] private float enemyDistanceAward = -0.005f;
     private float lastDistanceToEnemy;
 
     // --------------------------------------------------------------
@@ -85,7 +100,27 @@ public class CharacteAgent : Agent
         sr.color = originalColor;
         lastDistanceToEnemy = Vector2.Distance(transform.position, enemy.transform.position);
     }
+    private float flipCooldown = 0.2f;  // 最小间隔
+    private float flipTimer = 0f;
 
+    private void UpdateFlipDirection()
+    {
+        flipTimer -= Time.deltaTime;
+        if (flipTimer > 0f) return; // 冷却时间内不允许翻转
+
+        if (stateMachine.Input.moveDir > 0 && flip)
+        {
+            flip = false;
+            sr.flipX = false;
+            flipTimer = flipCooldown;
+        }
+        else if (stateMachine.Input.moveDir < 0 && !flip)
+        {
+            flip = true;
+            sr.flipX = true;
+            flipTimer = flipCooldown;
+        }
+    }
     public override void CollectObservations(VectorSensor sensor)
     {
         sensor.AddObservation(rb.velocity.x);
@@ -117,33 +152,56 @@ public class CharacteAgent : Agent
     public override void OnActionReceived(ActionBuffers actionBuffers)
     {
         stateMachine.Input.moveDir = actionBuffers.DiscreteActions[0] - 1;
+
+        if (stateMachine.Input.moveDir != 0 && lastMoveDir != 0 && stateMachine.Input.moveDir != lastMoveDir)
+            AddReward(switchDirPenalty);
         stateMachine.Input.jump = actionBuffers.DiscreteActions[1] == 1;
         stateMachine.Input.attack = actionBuffers.DiscreteActions[2] == 1;
         stateMachine.Input.dash = actionBuffers.DiscreteActions[3] == 1;
 
         if (stateMachine.Input.moveDir > 0)
-        {
             flip = false;
-            sr.flipX = false;
-        }
         else if (stateMachine.Input.moveDir < 0)
-        {
             flip = true;
-            sr.flipX = true;
-        }
-
 
         if (stateMachine.Input.moveDir != 0)
             AddReward(moveAward);
 
-
         float currentDist = Vector2.Distance(transform.position, enemy.transform.position);
         float distanceChange = lastDistanceToEnemy - currentDist;
-        AddReward(distanceChange * approachEnemyAward);
+        float optimalMin = attackRange * 0.8f;
+        float optimalMax = attackRange * 1.2f;
+        float tooClose = attackRange * 0.6f;
+        float tooFar = attackRange * 1.4f;
+
+        if ((currentDist < optimalMin && distanceChange > 0) ||
+            (currentDist > optimalMax && distanceChange < 0))
+        {
+            AddReward(enemyDistanceAward * Mathf.Abs(distanceChange));
+        }
+        if (currentDist >= optimalMin && currentDist <= optimalMax)
+        {
+            AddReward(attackRangeWardBest);
+        }
+        else if (currentDist < tooClose)
+        {
+            AddReward(attackRangeWardClose);
+        }
+        else if (currentDist > tooFar)
+        {
+            AddReward(attackRangeWardFar);
+        }
+
         lastDistanceToEnemy = currentDist;
 
-
         AddReward((hp / (float)maxHp) * stayHealthyAward);
+
+        // --------- 新增：靠近中心位置奖励 ---------
+        float distToCenter = Math.Abs(transform.position.x - arenaCenter.x);//Vector2.Distance(transform.position, arenaCenter);
+        if (distToCenter <= centerBonusRadius)
+        {
+            AddReward(centerReward);
+        }
     }
     public override void WriteDiscreteActionMask(IDiscreteActionMask actionMask)
     {
@@ -151,7 +209,7 @@ public class CharacteAgent : Agent
         {
             actionMask.SetActionEnabled(branch: 1, actionIndex: 1, isEnabled: false);
         }
-        if (dashColdTimer > 0f)
+        if (dashColdTimer > 0f && state == 4)
         {
             actionMask.SetActionEnabled(branch: 3, actionIndex: 1, isEnabled: false);
             
@@ -180,6 +238,7 @@ public class CharacteAgent : Agent
     }
     private void Update()
     {
+        UpdateFlipDirection();
         stateMachine.Update();
 
         if (attackTimer > 0f)
@@ -216,7 +275,13 @@ public class CharacteAgent : Agent
         {
             transform.position = initTransform.position;
             AddReward(fallAward);
-            BeAttacked(fallDamage);
+
+            hp -= fallDamage;
+            hpText.text = hp.ToString();
+            if (hp <= 0)
+            {
+                envController.OnAgentDeath(this);
+            }
         }
     }
     private void OnCollisionExit2D(Collision2D collision)
@@ -238,22 +303,48 @@ public class CharacteAgent : Agent
 
     public void BeAttacked(int damage)
     {
+        if (isInvincible) return; // 无敌时不处理
+
         hp -= damage;
-        AddReward(-damage * beAttackAward);
+        AddReward(damage * beAttackAward);
         hpText.text = hp.ToString();
 
-        // 播放受击效果
+
+        float now = Time.time;
+        if (now - lastHitTime <= hitComboTime)
+        {
+            hitCount++;
+        }
+        else
+        {
+            hitCount = 1; // 超过时间窗口重新计数
+        }
+        lastHitTime = now;
+
+
+        if (hitCount >= hitsToDown)
+        {
+            hitCount = 0;
+            var downState = new CharacterDown();
+            downState.InjectStateMachine(stateMachine, this);
+            stateMachine.Enter(downState); // 切换到倒地状态
+            return;
+        }
+
+        // ----- 播放受击反馈 -----
         if (sr != null)
         {
-            StopAllCoroutines(); // 停掉上一次的闪烁
+            StopAllCoroutines();
             StartCoroutine(FlashHitColor());
         }
 
+        // ----- 判断死亡 -----
         if (hp <= 0)
         {
             envController.OnAgentDeath(this);
         }
     }
+
 
     private IEnumerator FlashHitColor()
     {

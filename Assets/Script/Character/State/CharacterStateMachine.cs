@@ -29,7 +29,7 @@ public class CharacterStateMachine
         {
             currentState.Update();
         }
-        if(Input.dash && Agent.dashColdTimer<=0f)
+        if(Input.dash && Agent.dashColdTimer<=0f && Agent.state != 4)
         {
             Agent.dashColdTimer = Agent.dashCooldown;
             var dashState = new CharacterDash();
