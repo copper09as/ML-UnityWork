@@ -59,6 +59,7 @@ public class CharacteAgent : Agent
     public float dashCooldown = 0.5f;
     public float dashDuration = 0.2f;
     public float dashSpeed = 40f;
+    [SerializeField] private float centerBonusRadius = 2f; // 半径范围
     public int fallDamage = 30;
     public float hitFlashDuration = 0.2f;
     [Header("倒地检测参数")]
@@ -90,7 +91,7 @@ public class CharacteAgent : Agent
 
     [SerializeField] private float stayHealthyAward = 0.005f;  // 保持高血量奖励
     [SerializeField] private float fallAward = -1f;            // 掉落惩罚
-    [SerializeField] private float centerBonusRadius = 2f; // 半径范围
+   
     [SerializeField] private float centerReward = 0.01f;   // 奖励值
     [SerializeField]private float switchDirPenalty = -0.005f;
     [SerializeField] private float attackRangeWardBest = -0.005f;

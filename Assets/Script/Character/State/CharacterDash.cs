@@ -21,7 +21,6 @@ public class CharacterDash : CharacterState
 
         rb.gravityScale = 0f;
 
-        rb.bodyType = RigidbodyType2D.Kinematic;
 
         character.animator.Play("Dash");
 
@@ -31,7 +30,6 @@ public class CharacterDash : CharacterState
     {
         character.isInvincible = false;
         rb.gravityScale = originalGravity;
-        rb.bodyType = RigidbodyType2D.Dynamic;
     }
 
     public override void Update()

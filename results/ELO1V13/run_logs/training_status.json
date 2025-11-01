@@ -1,0 +1,48 @@
+{
+    "CharacterABehavior": {
+        "checkpoints": [
+            {
+                "steps": 499988,
+                "file_path": "results\\ELO1V13\\CharacterABehavior\\CharacterABehavior-499988.onnx",
+                "reward": null,
+                "creation_time": 1761998397.5301373,
+                "auxillary_file_paths": [
+                    "results\\ELO1V13\\CharacterABehavior\\CharacterABehavior-499988.pt"
+                ]
+            },
+            {
+                "steps": 999985,
+                "file_path": "results\\ELO1V13\\CharacterABehavior\\CharacterABehavior-999985.onnx",
+                "reward": -10342.560269196829,
+                "creation_time": 1761999209.2224262,
+                "auxillary_file_paths": [
+                    "results\\ELO1V13\\CharacterABehavior\\CharacterABehavior-999985.pt"
+                ]
+            },
+            {
+                "steps": 1000049,
+                "file_path": "results\\ELO1V13\\CharacterABehavior\\CharacterABehavior-1000049.onnx",
+                "reward": -10342.560269196829,
+                "creation_time": 1761999209.628536,
+                "auxillary_file_paths": [
+                    "results\\ELO1V13\\CharacterABehavior\\CharacterABehavior-1000049.pt"
+                ]
+            }
+        ],
+        "elo": 1083.5381471403748,
+        "final_checkpoint": {
+            "steps": 1000049,
+            "file_path": "results\\ELO1V13\\CharacterABehavior.onnx",
+            "reward": -10342.560269196829,
+            "creation_time": 1761999209.628536,
+            "auxillary_file_paths": [
+                "results\\ELO1V13\\CharacterABehavior\\CharacterABehavior-1000049.pt"
+            ]
+        }
+    },
+    "metadata": {
+        "stats_format_version": "0.3.0",
+        "mlagents_version": "1.1.0",
+        "torch_version": "1.12.1+cpu"
+    }
+}

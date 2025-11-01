@@ -1,0 +1,39 @@
+{
+    "CharacterABehavior": {
+        "checkpoints": [
+            {
+                "steps": 499940,
+                "file_path": "results\\ELO1V16\\CharacterABehavior\\CharacterABehavior-499940.onnx",
+                "reward": -2.465529737994075,
+                "creation_time": 1762001299.6061609,
+                "auxillary_file_paths": [
+                    "results\\ELO1V16\\CharacterABehavior\\CharacterABehavior-499940.pt"
+                ]
+            },
+            {
+                "steps": 941041,
+                "file_path": "results\\ELO1V16\\CharacterABehavior\\CharacterABehavior-941041.onnx",
+                "reward": null,
+                "creation_time": 1762002124.9508417,
+                "auxillary_file_paths": [
+                    "results\\ELO1V16\\CharacterABehavior\\CharacterABehavior-941041.pt"
+                ]
+            }
+        ],
+        "elo": 1199.0477495734758,
+        "final_checkpoint": {
+            "steps": 941041,
+            "file_path": "results\\ELO1V16\\CharacterABehavior.onnx",
+            "reward": null,
+            "creation_time": 1762002124.9508417,
+            "auxillary_file_paths": [
+                "results\\ELO1V16\\CharacterABehavior\\CharacterABehavior-941041.pt"
+            ]
+        }
+    },
+    "metadata": {
+        "stats_format_version": "0.3.0",
+        "mlagents_version": "1.1.0",
+        "torch_version": "1.12.1+cpu"
+    }
+}
