@@ -103,24 +103,7 @@ public class CharacteAgent : Agent
     private float flipCooldown = 0.2f;  // 最小间隔
     private float flipTimer = 0f;
 
-    private void UpdateFlipDirection()
-    {
-        flipTimer -= Time.deltaTime;
-        if (flipTimer > 0f) return; // 冷却时间内不允许翻转
 
-        if (stateMachine.Input.moveDir > 0 && flip)
-        {
-            flip = false;
-            sr.flipX = false;
-            flipTimer = flipCooldown;
-        }
-        else if (stateMachine.Input.moveDir < 0 && !flip)
-        {
-            flip = true;
-            sr.flipX = true;
-            flipTimer = flipCooldown;
-        }
-    }
     public override void CollectObservations(VectorSensor sensor)
     {
         sensor.AddObservation(rb.velocity.x);
@@ -163,7 +146,7 @@ public class CharacteAgent : Agent
             flip = false;
         else if (stateMachine.Input.moveDir < 0)
             flip = true;
-
+        sr.flipX = flip;
         if (stateMachine.Input.moveDir != 0)
             AddReward(moveAward);
 
@@ -226,19 +209,28 @@ public class CharacteAgent : Agent
 
 
         int move = 1;
-        if (Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.LeftArrow))
+        if (Input.GetKey(KeyCode.A))
             move = 0;
-        else if (Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.RightArrow))
+        else if (Input.GetKey(KeyCode.D))
             move = 2;
 
-        int jump = Input.GetKeyDown(KeyCode.Space) ? 1 : 0;
+
+        int jump = Input.GetKey(KeyCode.Space) ? 1 : 0;
+
+
+        int attack = Input.GetKey(KeyCode.J) ? 1 : 0;
+
+
+        int dash = Input.GetKey(KeyCode.L) ? 1 : 0;
 
         discreteActions[0] = move;
         discreteActions[1] = jump;
+        discreteActions[2] = attack;
+        discreteActions[3] = dash;
     }
     private void Update()
     {
-        UpdateFlipDirection();
+
         stateMachine.Update();
 
         if (attackTimer > 0f)

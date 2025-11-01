@@ -1276,7 +1276,7 @@ MonoBehaviour:
   stayHealthyAward: 0.005
   fallAward: -1000
   centerBonusRadius: 2
-  centerReward: 0.01
+  centerReward: 0.1
   switchDirPenalty: -0.01
   attackRangeWardBest: 0.02
   attackRangeWardFar: -0.02
@@ -1670,7 +1670,7 @@ MonoBehaviour:
     maxStep: 0
   hasUpgradedFromAgentParameters: 1
   MaxStep: 20000
-  arenaCenter: {fileID: 0}
+  arenaCenter: {fileID: 851511587}
   envController: {fileID: 651515872}
   hitColor: {r: 1, g: 0, b: 0, a: 1}
   originalColor: {r: 0.6156863, g: 1, b: 0.43529412, a: 1}
@@ -1706,7 +1706,7 @@ MonoBehaviour:
   stayHealthyAward: 0.005
   fallAward: -1000
   centerBonusRadius: 2
-  centerReward: 0.01
+  centerReward: 0.1
   switchDirPenalty: -0.01
   attackRangeWardBest: 0.02
   attackRangeWardFar: -0.02

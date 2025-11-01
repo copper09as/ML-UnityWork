@@ -23,7 +23,7 @@ public class CharacterDash : CharacterState
 
         rb.bodyType = RigidbodyType2D.Kinematic;
 
-        character.animator.Play("Walk");
+        character.animator.Play("Dash");
 
     }
 
@@ -43,7 +43,6 @@ public class CharacterDash : CharacterState
 
         if (character.dashTimer >= character.dashDuration)
         {
-            // 冲刺结束，回到上一个状态
             stateMachine.Enter(stateMachine.lastState);
         }
     }

@@ -6,6 +6,7 @@ public class CharacterIdle : CharacterState
     public override void OnEnter()
     {
         character.state = 0;
+        character.animator.Play("Idle");
     }
 
     public override void OnExit()
