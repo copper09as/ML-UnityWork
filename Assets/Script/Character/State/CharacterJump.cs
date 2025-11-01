@@ -29,6 +29,9 @@ public class CharacterJump : CharacterState
         {
             if (stateMachine.Input.moveDir == 0)
             {
+                var idleState = new CharacterIdle();
+                idleState.InjectStateMachine(stateMachine, character);
+                stateMachine.Enter(idleState);
                 return;
             }
             if (stateMachine.Input.moveDir != 0)

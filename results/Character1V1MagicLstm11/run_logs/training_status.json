@@ -1,0 +1,51 @@
+{
+    "CharacterBBehavior": {
+        "checkpoints": [
+            {
+                "steps": 20196,
+                "file_path": "results\\Character1V1MagicLstm11\\CharacterBBehavior\\CharacterBBehavior-20196.onnx",
+                "reward": null,
+                "creation_time": 1761991481.0218673,
+                "auxillary_file_paths": [
+                    "results\\Character1V1MagicLstm11\\CharacterBBehavior\\CharacterBBehavior-20196.pt"
+                ]
+            }
+        ],
+        "final_checkpoint": {
+            "steps": 20196,
+            "file_path": "results\\Character1V1MagicLstm11\\CharacterBBehavior.onnx",
+            "reward": null,
+            "creation_time": 1761991481.0218673,
+            "auxillary_file_paths": [
+                "results\\Character1V1MagicLstm11\\CharacterBBehavior\\CharacterBBehavior-20196.pt"
+            ]
+        }
+    },
+    "CharacterABehavior": {
+        "checkpoints": [
+            {
+                "steps": 20196,
+                "file_path": "results\\Character1V1MagicLstm11\\CharacterABehavior\\CharacterABehavior-20196.onnx",
+                "reward": null,
+                "creation_time": 1761991481.3082874,
+                "auxillary_file_paths": [
+                    "results\\Character1V1MagicLstm11\\CharacterABehavior\\CharacterABehavior-20196.pt"
+                ]
+            }
+        ],
+        "final_checkpoint": {
+            "steps": 20196,
+            "file_path": "results\\Character1V1MagicLstm11\\CharacterABehavior.onnx",
+            "reward": null,
+            "creation_time": 1761991481.3082874,
+            "auxillary_file_paths": [
+                "results\\Character1V1MagicLstm11\\CharacterABehavior\\CharacterABehavior-20196.pt"
+            ]
+        }
+    },
+    "metadata": {
+        "stats_format_version": "0.3.0",
+        "mlagents_version": "1.1.0",
+        "torch_version": "1.12.1+cpu"
+    }
+}

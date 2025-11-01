@@ -13,13 +13,19 @@ public class CharacteAgent : Agent
     private CharacterStateMachine stateMachine;
     public BattleEnvController envController;
     private int lastMoveDir = 0;
-   
+    public MagicBall ballPrefab;
+
+    [SerializeField] private Transform deadLeft;
+    [SerializeField] private Transform deadRight;
+    [SerializeField] private Transform deadDown;
     [Header("角色视觉反馈")]
     public Color hitColor = Color.red;  // 被攻击时的颜色
     [SerializeField] private Color originalColor;
     [SerializeField] private SpriteRenderer sr;
     [SerializeField] private Text hpText;
-
+    [SerializeField] private Text MpText;
+    [SerializeField] private Transform leftPosition;
+    [SerializeField] private Transform rightPosition;
     [Header("角色引用")]
     [SerializeField] private Transform initTransform;
     public Rigidbody2D rb;
@@ -30,16 +36,29 @@ public class CharacteAgent : Agent
 
     [Header("角色属性")]
     public float jumpHeight = 5f;
+    private int _mp;
+    public int mp
+    {
+        get { return _mp; }
+        set
+        {
+            _mp = value;
+            MpText.text = value.ToString();
+        }
+    }
+    public int maxMp = 4;
     public float speedSky = 5f;
     public float speed = 5f;
     public int damage = 10;
     public int maxHp = 100;
+    public float facingAward;
+    public float notFacingAward;
     public int hp = 100;
     public float attackRange = 1.5f;
     public float attackCooldown = 0.5f;
     public float dashCooldown = 0.5f;
-    public float dashDuration = 0.3f;
-    public float dashSpeed = 10f;
+    public float dashDuration = 0.2f;
+    public float dashSpeed = 40f;
     public int fallDamage = 30;
     public float hitFlashDuration = 0.2f;
     [Header("倒地检测参数")]
@@ -64,8 +83,8 @@ public class CharacteAgent : Agent
     [SerializeField] private float beAttackAward = 0.01f;      // 被攻击惩罚
     [SerializeField] private float attackAward = 0.5f;         // 攻击命中奖励
     [SerializeField] public float attackMissAward = -0.1f;    // 攻击未命中奖励
-
-
+    [SerializeField] public float magicAward;
+    [SerializeField] public float magicMissAward;
     [Header("奖励参数 - 行为")]
     [SerializeField] private float moveAward = 0.002f;         // 移动奖励
 
@@ -94,37 +113,33 @@ public class CharacteAgent : Agent
         stateMachine.Enter(moveState);
 
         rb.velocity = Vector2.zero;
-        transform.position = initTransform.position;
+        transform.position = new Vector2(UnityEngine.Random.Range(leftPosition.position.x, rightPosition.position.x), initTransform.position.y);
         hp = maxHp;
         hpText.text = hp.ToString();
         sr.color = originalColor;
         lastDistanceToEnemy = Vector2.Distance(transform.position, enemy.transform.position);
+        mp = 3;
+        hitCount = 0;
     }
-    private float flipCooldown = 0.2f;  // 最小间隔
-    private float flipTimer = 0f;
+
 
 
     public override void CollectObservations(VectorSensor sensor)
     {
-        sensor.AddObservation(rb.velocity.x);
-        sensor.AddObservation(rb.velocity.y);
-        sensor.AddObservation(transform.position.x);
-        sensor.AddObservation(transform.position.y);
+
         sensor.AddObservation(hp / (float)maxHp);
         sensor.AddObservation(state);
-        sensor.AddObservation(inGround ? 1f : 0f);
-        sensor.AddObservation(flip ? 1f : 0f);
         sensor.AddObservation(attackTimer / attackCooldown);
         sensor.AddObservation(isInvincible ? 1f : 0f);
-
-        sensor.AddObservation(enemy.rb.velocity.x);
-        sensor.AddObservation(enemy.rb.velocity.y);
-        sensor.AddObservation(enemy.transform.position.x);
-        sensor.AddObservation(enemy.transform.position.y);
+        sensor.AddObservation(mp);
+        sensor.AddObservation(enemy.mp);
+        Vector2 relativePos = enemy.transform.position - transform.position;
+        sensor.AddObservation(relativePos.x);
+        sensor.AddObservation(relativePos.y);
         sensor.AddObservation(enemy.hp / (float)enemy.maxHp);
         sensor.AddObservation(enemy.state);
-        sensor.AddObservation(enemy.inGround ? 1f : 0f);
-        sensor.AddObservation(enemy.flip ? 1f : 0f);
+        sensor.AddObservation(enemy.hp / (float)enemy.maxHp);
+        sensor.AddObservation(enemy.state);
     }
 
     public bool IsFacingRight()
@@ -135,7 +150,22 @@ public class CharacteAgent : Agent
     public override void OnActionReceived(ActionBuffers actionBuffers)
     {
         stateMachine.Input.moveDir = actionBuffers.DiscreteActions[0] - 1;
+        if(transform.position.x<deadLeft.position.x || transform.position.x>deadRight.position.x || transform.position.y<deadDown.position.y)
+        {
 
+            transform.position = new Vector2(UnityEngine.Random.Range(leftPosition.position.x, rightPosition.position.x), initTransform.position.y);
+            //transform.position = initTransform.position;
+            AddReward(fallAward);
+
+            hp -= fallDamage;
+            hpText.text = hp.ToString();
+            if (hp <= 0)
+            {
+                envController.OnAgentDeath(this);
+            }
+        }
+
+        
         // 切换方向惩罚
         if (stateMachine.Input.moveDir != 0 && lastMoveDir != 0 && stateMachine.Input.moveDir != lastMoveDir)
             AddReward(switchDirPenalty);
@@ -143,7 +173,7 @@ public class CharacteAgent : Agent
         stateMachine.Input.jump = actionBuffers.DiscreteActions[1] == 1;
         stateMachine.Input.attack = actionBuffers.DiscreteActions[2] == 1;
         stateMachine.Input.dash = actionBuffers.DiscreteActions[3] == 1;
-
+        stateMachine.Input.magic = actionBuffers.DiscreteActions[4] == 1;
         // 翻转角色
         if (stateMachine.Input.moveDir > 0)
             flip = false;
@@ -190,7 +220,13 @@ public class CharacteAgent : Agent
         {
             AddReward(centerReward);
         }
+        Vector2 dirToEnemy = enemy.transform.position - transform.position;
+        bool facingEnemy = (dirToEnemy.x > 0 && !flip) || (dirToEnemy.x < 0 && flip);
 
+        if (facingEnemy)
+            AddReward(facingAward);
+        else
+            AddReward(notFacingAward);
 
         lastMoveDir = stateMachine.Input.moveDir;
     }
@@ -231,11 +267,12 @@ public class CharacteAgent : Agent
 
 
         int dash = Input.GetKey(KeyCode.L) ? 1 : 0;
-
+        int magic = Input.GetKey(KeyCode.K) ? 1 : 0;
         discreteActions[0] = move;
         discreteActions[1] = jump;
         discreteActions[2] = attack;
         discreteActions[3] = dash;
+        discreteActions[4] = magic;
     }
     private void Update()
     {
@@ -270,21 +307,7 @@ public class CharacteAgent : Agent
             inGround = true;
         }
     }
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
-        if (collision.gameObject.layer == LayerMask.NameToLayer("Dead"))
-        {
-            transform.position = initTransform.position;
-            AddReward(fallAward);
 
-            hp -= fallDamage;
-            hpText.text = hp.ToString();
-            if (hp <= 0)
-            {
-                envController.OnAgentDeath(this);
-            }
-        }
-    }
     private void OnCollisionExit2D(Collision2D collision)
     {
         if (collision.gameObject.layer == LayerMask.NameToLayer("Ground"))
@@ -299,6 +322,10 @@ public class CharacteAgent : Agent
         enemy.BeAttacked(damage);
 
         AddReward(attackAward);
+        if(mp<maxMp)
+        {
+            mp++;
+        }
     }
 
 
@@ -321,8 +348,17 @@ public class CharacteAgent : Agent
             hitCount = 1; // 超过时间窗口重新计数
         }
         lastHitTime = now;
-
-
+        // ----- 播放受击反馈 -----
+        if (sr != null)
+        {
+            StopAllCoroutines();
+            StartCoroutine(FlashHitColor());
+        }
+        if (hp <= 0)
+        {
+            envController.OnAgentDeath(this);
+            return;
+        }
         if (hitCount >= hitsToDown)
         {
             hitCount = 0;
@@ -332,18 +368,10 @@ public class CharacteAgent : Agent
             return;
         }
 
-        // ----- 播放受击反馈 -----
-        if (sr != null)
-        {
-            StopAllCoroutines();
-            StartCoroutine(FlashHitColor());
-        }
+
 
         // ----- 判断死亡 -----
-        if (hp <= 0)
-        {
-            envController.OnAgentDeath(this);
-        }
+
     }
 
 

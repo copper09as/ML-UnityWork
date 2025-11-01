@@ -1,0 +1,49 @@
+{
+    "name": "root",
+    "metadata": {
+        "timer_format_version": "0.1.0",
+        "start_time_seconds": "1761982778",
+        "python_version": "3.10.1 (tags/v3.10.1:2cd268a, Dec  6 2021, 19:10:37) [MSC v.1929 64 bit (AMD64)]",
+        "command_line_arguments": "C:\\Users\\49469\\AppData\\Local\\Programs\\Python\\Python310\\Scripts\\mlagents-learn config.yaml --run-id=Character1V1MagicLstm --resume",
+        "mlagents_version": "1.1.0",
+        "mlagents_envs_version": "1.1.0",
+        "communication_protocol_version": "1.5.0",
+        "pytorch_version": "1.12.1+cpu",
+        "numpy_version": "1.23.5",
+        "end_time_seconds": "1761982830"
+    },
+    "total": 52.603803800000605,
+    "count": 1,
+    "self": 0.015285600000424893,
+    "children": {
+        "run_training.setup": {
+            "total": 0.2169212000007974,
+            "count": 1,
+            "self": 0.2169212000007974
+        },
+        "TrainerController.start_learning": {
+            "total": 52.37159699999938,
+            "count": 1,
+            "self": 0.00014039999950909987,
+            "children": {
+                "TrainerController._reset_env": {
+                    "total": 51.490270399999645,
+                    "count": 1,
+                    "self": 51.490270399999645
+                },
+                "TrainerController._save_models": {
+                    "total": 0.8811862000002293,
+                    "count": 1,
+                    "self": 0.03984180000043125,
+                    "children": {
+                        "RLTrainer._checkpoint": {
+                            "total": 0.841344399999798,
+                            "count": 1,
+                            "self": 0.841344399999798
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

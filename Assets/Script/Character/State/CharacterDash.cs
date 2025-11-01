@@ -43,7 +43,18 @@ public class CharacterDash : CharacterState
 
         if (character.dashTimer >= character.dashDuration)
         {
-            stateMachine.Enter(stateMachine.lastState);
+            if (stateMachine.Input.moveDir == 0)
+            {
+                var idleState = new CharacterIdle();
+                idleState.InjectStateMachine(stateMachine, character);
+                stateMachine.Enter(idleState);
+            }
+            else
+            {
+                var moveState = new CharacterMove();
+                moveState.InjectStateMachine(stateMachine, character);
+                stateMachine.Enter(moveState);
+            }
         }
     }
 }

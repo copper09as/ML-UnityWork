@@ -1,0 +1,29 @@
+{
+    "CharacterABehavior": {
+        "checkpoints": [
+            {
+                "steps": 13752,
+                "file_path": "results\\Character1V1MagicLstm3\\CharacterABehavior\\CharacterABehavior-13752.onnx",
+                "reward": null,
+                "creation_time": 1761986171.2692566,
+                "auxillary_file_paths": [
+                    "results\\Character1V1MagicLstm3\\CharacterABehavior\\CharacterABehavior-13752.pt"
+                ]
+            }
+        ],
+        "final_checkpoint": {
+            "steps": 13752,
+            "file_path": "results\\Character1V1MagicLstm3\\CharacterABehavior.onnx",
+            "reward": null,
+            "creation_time": 1761986171.2692566,
+            "auxillary_file_paths": [
+                "results\\Character1V1MagicLstm3\\CharacterABehavior\\CharacterABehavior-13752.pt"
+            ]
+        }
+    },
+    "metadata": {
+        "stats_format_version": "0.3.0",
+        "mlagents_version": "1.1.0",
+        "torch_version": "1.12.1+cpu"
+    }
+}

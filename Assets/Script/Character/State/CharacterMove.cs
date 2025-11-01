@@ -23,7 +23,7 @@ public class CharacterMove : CharacterState
     public override void Update()
     {
         character.rb.velocity = new Vector2(character.speed * stateMachine.Input.moveDir, character.rb.velocity.y);
-        if (stateMachine.Input.attack && character.attackTimer<0)
+        if (stateMachine.Input.attack && character.attackTimer<=0)
         {
             var attackState = new CharacterAttack();
             attackState.InjectStateMachine(stateMachine, character);

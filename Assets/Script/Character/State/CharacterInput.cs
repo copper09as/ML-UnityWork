@@ -10,6 +10,7 @@ using System.Threading.Tasks;
         public bool jump;
         public bool attack;
         public bool dash;
+        public bool magic;
 
     }
 

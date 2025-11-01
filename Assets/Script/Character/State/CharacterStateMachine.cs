@@ -35,6 +35,15 @@ public class CharacterStateMachine
             var dashState = new CharacterDash();
             dashState.InjectStateMachine(this, Agent);
             Enter(dashState);
+            return;
+        }
+        if(Agent.state != 5 && Input.magic && Agent.mp>0 && Agent.state != 4)
+        {
+            Agent.mp -= 1;
+            var magicState = new CharacterMagic();
+            magicState.InjectStateMachine(this, Agent);
+            Enter(magicState);
+            return;
         }
     }
 }
