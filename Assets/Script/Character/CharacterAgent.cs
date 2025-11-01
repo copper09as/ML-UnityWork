@@ -136,20 +136,25 @@ public class CharacteAgent : Agent
     {
         stateMachine.Input.moveDir = actionBuffers.DiscreteActions[0] - 1;
 
+        // 切换方向惩罚
         if (stateMachine.Input.moveDir != 0 && lastMoveDir != 0 && stateMachine.Input.moveDir != lastMoveDir)
             AddReward(switchDirPenalty);
+
         stateMachine.Input.jump = actionBuffers.DiscreteActions[1] == 1;
         stateMachine.Input.attack = actionBuffers.DiscreteActions[2] == 1;
         stateMachine.Input.dash = actionBuffers.DiscreteActions[3] == 1;
 
+        // 翻转角色
         if (stateMachine.Input.moveDir > 0)
             flip = false;
         else if (stateMachine.Input.moveDir < 0)
             flip = true;
         sr.flipX = flip;
+
         if (stateMachine.Input.moveDir != 0)
             AddReward(moveAward);
 
+        // 与敌人距离奖励逻辑
         float currentDist = Vector2.Distance(transform.position, enemy.transform.position);
         float distanceChange = lastDistanceToEnemy - currentDist;
         float optimalMin = attackRange * 0.8f;
@@ -179,13 +184,17 @@ public class CharacteAgent : Agent
 
         AddReward((hp / (float)maxHp) * stayHealthyAward);
 
-        // --------- 新增：靠近中心位置奖励 ---------
-        float distToCenter = Math.Abs(transform.position.x - arenaCenter.position.x);//Vector2.Distance(transform.position, arenaCenter);
+        // 中心位置奖励
+        float distToCenter = Math.Abs(transform.position.x - arenaCenter.position.x);
         if (distToCenter <= centerBonusRadius)
         {
             AddReward(centerReward);
         }
+
+
+        lastMoveDir = stateMachine.Input.moveDir;
     }
+
     public override void WriteDiscreteActionMask(IDiscreteActionMask actionMask)
     {
         if (!inGround)
