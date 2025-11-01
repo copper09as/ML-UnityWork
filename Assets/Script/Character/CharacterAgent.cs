@@ -8,7 +8,7 @@ using UnityEngine.UI;
 
 public class CharacteAgent : Agent
 {
-    public Vector2 arenaCenter = Vector2.zero; // 场地中心位置
+    public Transform arenaCenter; // 场地中心位置
 
     private CharacterStateMachine stateMachine;
     public BattleEnvController envController;
@@ -197,7 +197,7 @@ public class CharacteAgent : Agent
         AddReward((hp / (float)maxHp) * stayHealthyAward);
 
         // --------- 新增：靠近中心位置奖励 ---------
-        float distToCenter = Math.Abs(transform.position.x - arenaCenter.x);//Vector2.Distance(transform.position, arenaCenter);
+        float distToCenter = Math.Abs(transform.position.x - arenaCenter.position.x);//Vector2.Distance(transform.position, arenaCenter);
         if (distToCenter <= centerBonusRadius)
         {
             AddReward(centerReward);

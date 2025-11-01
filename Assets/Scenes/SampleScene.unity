@@ -1240,7 +1240,7 @@ MonoBehaviour:
     maxStep: 0
   hasUpgradedFromAgentParameters: 1
   MaxStep: 20000
-  arenaCenter: {x: -5.3253, y: 0}
+  arenaCenter: {fileID: 851511587}
   envController: {fileID: 651515872}
   hitColor: {r: 1, g: 0, b: 0, a: 1}
   originalColor: {r: 0.4, g: 0.5803922, b: 1, a: 1}
@@ -1670,7 +1670,7 @@ MonoBehaviour:
     maxStep: 0
   hasUpgradedFromAgentParameters: 1
   MaxStep: 20000
-  arenaCenter: {x: 0, y: 0}
+  arenaCenter: {fileID: 0}
   envController: {fileID: 651515872}
   hitColor: {r: 1, g: 0, b: 0, a: 1}
   originalColor: {r: 0.6156863, g: 1, b: 0.43529412, a: 1}
