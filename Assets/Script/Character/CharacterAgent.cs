@@ -168,7 +168,10 @@ public class CharacteAgent : Agent
         
         // 切换方向惩罚
         if (stateMachine.Input.moveDir != 0 && lastMoveDir != 0 && stateMachine.Input.moveDir != lastMoveDir)
+        {
             AddReward(switchDirPenalty);
+        }
+            
 
         stateMachine.Input.jump = actionBuffers.DiscreteActions[1] == 1;
         stateMachine.Input.attack = actionBuffers.DiscreteActions[2] == 1;
@@ -224,7 +227,10 @@ public class CharacteAgent : Agent
         bool facingEnemy = (dirToEnemy.x > 0 && !flip) || (dirToEnemy.x < 0 && flip);
 
         if (facingEnemy)
+        {
             AddReward(facingAward);
+        }
+            
         else
             AddReward(notFacingAward);
 
